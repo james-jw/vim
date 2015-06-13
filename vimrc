@@ -19,12 +19,16 @@ set tabstop=3
 set shiftwidth=3
 set nowrap
 set nu
+" NerdTree AutoClose when only tree open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+map <C-n> :NERDTreeToggle<CR></CR>
 
 " Highlight current line
 :hi CursorLine   cterm=NONE ctermbg=darkgray 
 :hi CursorColumn cterm=NONE ctermbg=darkgray 
 :nnoremap <Leader>c :set cursorline! cursorcolumn!<CR></CR></Leader>
 
+" Only show current line on active window
 augroup CursorLine
 au!
 au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
