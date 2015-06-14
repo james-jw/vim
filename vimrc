@@ -13,15 +13,22 @@ set ignorecase
 set incsearch
 set background=dark
 set autoindent
+set autoread
 
 set expandtab
 set tabstop=3
 set shiftwidth=3
 set nowrap
 set nu
+
+hi Folded ctermbg=blue
+hi Folded ctermfg=darkgray
+
+" Auto Fold based on syntax 
+set foldmethod=syntax
+
 " NerdTree AutoClose when only tree open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-map <C-n> :NERDTreeToggle<CR></CR>
+map <C-n> :NERDTreeToggle<CR>
 
 " Highlight current line
 :hi CursorLine   cterm=NONE ctermbg=darkgray 
