@@ -5,6 +5,8 @@ wget -nv -N https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload
 cd ..
 wget -nv -N https://raw.githubusercontent.com/james-jw/vim/master/vimrc --no-check-certificate
 wget -nv -N https://bitbucket.org/ns9tks/vim-autocomplpop/get/tip.zip --no-check-certificate
+unzip tip.zip -d /bundle/autocomplete.vim
+rm tip.zip
 
 git clone --depth=1 git@github.com:tpope/vim-surround.git bundle/vim-surround.vim
 git clone --depth=1 git@github.com:james-jw/vim-xquery-syntax.git bundle/xquery-syntax.vim
