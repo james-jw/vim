@@ -21,7 +21,7 @@ git clone --depth=1 git@github.com:james-jw/xqueryvim.git bundle/xqueryvim.vim
 git clone --depth=1 git@github.com:aquach/vim-http-client.git bundle/http-client.vim
 
 # Install You Complete Me
-git clone --depth=1 git@github.com:Valloric/YouCompleteMe.git bundle/YouCompleteMe.vim
+git clone --depth=1 git@github.com:james-jw/YouCompleteMe.git bundle/YouCompleteMe.vim
 sudo apt-get install build-essentials cmake
 sudo apt-get install python-dev
 cd bundle/YouCompleteMe.vim/
