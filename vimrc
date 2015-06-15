@@ -27,12 +27,12 @@ set autoread
 set hidden
 set shiftround
 set expandtab
-set tabstop=3
-set shiftwidth=3
+set tabstop=2
+set shiftwidth=2
 set nowrap
 set nu 
 
-" Fugitive
+" Fugitive auto delete hidden buffers
 autocmd BufReadPost fugitive://* bufhidden=delete
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
 
