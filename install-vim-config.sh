@@ -13,7 +13,6 @@ git clone --depth=1 git@github.com:tpope/vim-surround.git bundle/vim-surround.vi
 git clone --depth=1 git@github.com:james-jw/vim-xquery-syntax.git bundle/xquery-syntax.vim
 git clone --depth=1 git@github.com:Townk/vim-autoclose.git bundle/autoclose.vim
 git clone --depth=1 git@github.com:bling/vim-airline bundle/airline.vim
-git clone --depth=1 git@github.com:vim-scripts/closetag.vim.git bundle/closetag.vim
 git clone --depth=1 git@github.com:scrooloose/nerdtree.git bundle/nerdtree.vim
 git clone --depth=1 git@github.com:tpope/vim-fugitive.git bundle/fugitive.vim
 git clone --depth=1 git@github.com:kien/ctrlp.vim.git bundle/ctrlp.vim

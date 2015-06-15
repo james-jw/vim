@@ -31,6 +31,7 @@ set tabstop=2
 set shiftwidth=2
 set nowrap
 set nu 
+set iskeyword+=-,36,37,47,58,60,64
 
 let g:ycm_semantic_triggers = {
 \ 'xquery': [':']
@@ -42,8 +43,6 @@ autocmd BufReadPost fugitive://* bufhidden=delete
 
 nnoremap j gj
 nnoremap k gk
-
-cmap W!! W !sudo tee % >/dev/nulldd
 
 " Popup
 hi PmenuSel ctermbg=gray ctermfg=blue
