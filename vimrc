@@ -3,23 +3,63 @@ set backspace=indent,eol,start
 set textwidth=0
 set nobackup
 execute pathogen#infect()
-set history=200
+set history=1200
+set undolevels=1000
+set visualbell
+set noerrorbells
+set title
 set ruler
+set nobackup
+set noswapfile
 syntax on
 filetype plugin on
 set showcmd
 set showmatch
 set ignorecase
+set smartcase
+set smarttab
 set incsearch
 set background=dark
 set autoindent
+set copyindent
 set autoread
-
+set hidden
+set shiftround
 set expandtab
 set tabstop=3
 set shiftwidth=3
 set nowrap
-set nu
+set nu 
+
+" Fugitive
+autocmd BufReadPost fugitive://* bufhidden=delete
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
+
+" Complete Settings
+set iskeyword+=\-,\:,\$
+set completeopt=longest,menuone
+
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
+\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
+
+nnoremap j gj
+nnoremap k gk
+
+cmap W!! W !sudo tee % >/dev/nulldd
+
+" Popup
+hi PmenuSel ctermbg=gray ctermfg=blue
+hi Pmenu ctermbg=red  ctermfg=gray
+
+" Seperator
+set fillchars+=vert:\ 
+set fillchars+=fold:\ 
+hi VertSplit ctermbg=gray
 
 hi Folded ctermbg=blue
 hi Folded ctermfg=darkgray
@@ -31,9 +71,12 @@ set foldmethod=syntax
 map <C-n> :NERDTreeToggle<CR>
 
 " Highlight current line
-:hi CursorLine   cterm=NONE ctermbg=darkgray 
-:hi CursorColumn cterm=NONE ctermbg=darkgray 
-:nnoremap <Leader>c :set cursorline! cursorcolumn!<CR></CR></Leader>
+hi CursorLine   cterm=NONE ctermbg=darkgray 
+hi CursorColumn cterm=NONE ctermbg=darkgray 
+nnoremap <Leader>c :set cursorline! cursorcolumn!<CR></CR></Leader>
+
+" Rename : to ;
+nnoremap ; :
 
 " Only show current line on active window
 augroup CursorLine
@@ -43,7 +86,7 @@ au WinLeave * setlocal nocursorline
 augroup END
 
 " Sticky Highlight
-:nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR></CR></Leader></silent>
+nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR></CR></Leader></silent>
 
 " Highlight row numbers
 highlight LineNr ctermfg=gray ctermbg=red
@@ -52,7 +95,9 @@ highlight LineNr ctermfg=gray ctermbg=red
 inoremap ( ()<Esc>i
 inoremap [ []<Esc>i
 inoremap { {}<Esc>i
-autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
+
+" autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
+inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap ] <c-r>=ClosePair(']')<CR>
 inoremap } <c-r>=CloseBracket()<CR>
