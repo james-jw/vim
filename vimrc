@@ -33,7 +33,7 @@ set nu
 
 " Fugitive
 autocmd BufReadPost fugitive://* bufhidden=delete
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
 
 " Complete Settings
 set iskeyword+=\-,\:,\$
