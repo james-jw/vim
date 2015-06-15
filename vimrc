@@ -32,6 +32,10 @@ set shiftwidth=2
 set nowrap
 set nu 
 
+let g:ycm_semantic_triggers = {
+\ 'xquery': [':']
+\ }
+
 " Fugitive auto delete hidden buffers
 autocmd BufReadPost fugitive://* bufhidden=delete
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
