@@ -16,5 +16,12 @@ git clone --depth=1 git@github.com:vim-scripts/closetag.vim.git bundle/closetag.
 git clone --depth=1 git@github.com:scrooloose/nerdtree.git bundle/nerdtree.vim
 git clone --depth=1 git@github.com:tpope/vim-fugitive.git bundle/fugitive.vim
 git clone --depth=1 git@github.com:kien/ctrlp.vim.git bundle/ctrlp.vim
+git clone --depth=1 git@github.com:james-jw/xqueryvim.git bundle/xqueryvim.vim
+git clone --depth=1 git@github.com:Valloric/YouCompleteMe.git bundle/YouCompleteMe.vim
+git clone --depth=1 git@github.com:aquach/vim-http-client.git bundle/http-client.vim
+
+cd bundle/YouCompleteMe.vim/
+bash ./install.sh --omnisharp-completer
+
 
 printf 'Vim configuration complete!'

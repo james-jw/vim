@@ -13,6 +13,7 @@ set nobackup
 set noswapfile
 syntax on
 filetype plugin on
+filetype plugin indent on
 set showcmd
 set showmatch
 set ignorecase
@@ -34,18 +35,6 @@ set nu
 " Fugitive
 autocmd BufReadPost fugitive://* bufhidden=delete
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
-
-" Complete Settings
-set iskeyword+=\-,\:,\$
-set completeopt=longest,menuone
-
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-\ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-\ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 nnoremap j gj
 nnoremap k gk
