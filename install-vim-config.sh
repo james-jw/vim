@@ -1,6 +1,10 @@
+cd ~
+cp .vim .vimbackup -r
+mkdir .vim
+cd .vim/
 mkdir autoload
 mkdir bundle
-cd autoload
+cd autoload/
 wget -nv -N https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim --no-check-certificate
 cd ..
 wget -nv -N https://raw.githubusercontent.com/james-jw/vim/master/vimrc --no-check-certificate
