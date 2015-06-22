@@ -1,3 +1,5 @@
+set t_Co=256
+set laststatus=2 " Permanent status bar
 set nocompatible
 set backspace=indent,eol,start
 set textwidth=0
@@ -32,98 +34,107 @@ set shiftwidth=2
 set nowrap
 set nu 
 set iskeyword+=-,36,37,47,58,60,64
+set completeopt=longest,menuone,preview
+colorscheme ir_black
+" Colors for the diffs
+hi DiffAdd guifg=#aaeeaa ctermfg=157 guibg=#447744 ctermbg=28 gui=none cterm=none 
+hi DiffChange guifg=black ctermfg=16 guibg=#ddbb55 ctermbg=179 gui=none cterm=none 
+hi DiffDelete guifg=#336633 ctermfg=22 guibg=#aaccaa ctermbg=red gui=none cterm=none 
+hi Difftext guifg=black ctermfg=16 guibg=#cc7733 ctermbg=172 gui=none cterm=none 
+
+" Enable power line fonts.
+let g:Powerline_symbols = 'fancy'
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'readonly': 'MyReadonly',
+      \   'modified': 'MyModified',
+      \   'filename': 'MyFilename'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+function! MyModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! MyReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "⭤"
+  else
+    return ""
+  endif
+endfunction
+
+function! MyFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⭠ '._ : ''
+  endif
+  return ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+        \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
 
 let g:ycm_semantic_triggers = {
 \ 'xquery': [':']
 \ }
 
+" Enable syntastic output
+let g:syntastic_enable_signs=1
+
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+let g:syntastic_enable_balloons=0
+
+" Easy window resize when more than one window
+if bufwinnr(1)
+  map + <C-W>+
+  map - <C-W>-
+endif
+
 " Fugitive auto delete hidden buffers
-autocmd BufReadPost fugitive://* bufhidden=delete
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%1,%c%V%)\ %P
+autocmd BufReadPost fugitive://* set bufhidden=delete
 
 nnoremap j gj
 nnoremap k gk
 
-" Popup
-hi PmenuSel ctermbg=gray ctermfg=blue
-hi Pmenu ctermbg=red  ctermfg=gray
-
-" Seperator
-set fillchars+=vert:\ 
-set fillchars+=fold:\ 
-hi VertSplit ctermbg=gray
-
-hi Folded ctermbg=blue
-hi Folded ctermfg=darkgray
+hi Folded ctermfg=darkgreen
+hi Pmenu ctermbg=darkgray ctermfg=white
+hi PmenuSel ctermbg=blue ctermfg=black
 
 " Auto Fold based on syntax 
 set foldmethod=syntax
-
 " NerdTree AutoClose when only tree open
 map <C-n> :NERDTreeToggle<CR>
 
 " Highlight current line
-hi CursorLine   cterm=NONE ctermbg=darkgray 
-hi CursorColumn cterm=NONE ctermbg=darkgray 
 nnoremap <Leader>c :set cursorline! cursorcolumn!<CR></CR></Leader>
 
 " Rename : to ;
 nnoremap ; :
 
-" Only show current line on active window
-augroup CursorLine
-au!
-au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-au WinLeave * setlocal nocursorline
-augroup END
-
 " Sticky Highlight
-nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR></CR></Leader></silent>
-
-" Highlight row numbers
-highlight LineNr ctermfg=gray ctermbg=red
-
-" Auto Close
-inoremap ( ()<Esc>i
-inoremap [ []<Esc>i
-inoremap { {}<Esc>i
-
-" autocmd Syntax html,vim inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
-inoremap < <lt>><Esc>i| inoremap > <c-r>=ClosePair('>')<CR>
-inoremap ) <c-r>=ClosePair(')')<CR>
-inoremap ] <c-r>=ClosePair(']')<CR>
-inoremap } <c-r>=CloseBracket()<CR>
-inoremap " <c-r>=QuoteDelim('"')<CR>
-inoremap ' <c-r>=QuoteDelim("'")<CR>
-
-function ClosePair(char)
-   if getline('.')[col('.') - 1] == a:char
-      return "\<Right>"
-   else
-      return a:char
-   endif
-endf
-
-function CloseBracket()
-	if match(getline(line('.') + 1), '\s*}') < 0
-      return "\<CR>}"
-	else
-      return "\<Esc>j0f}a"
-	endif
-endf
-
-function QuoteDelim(char)
-	let line = getline('.')
-	let col = col('.')
-	if line[col - 2] == "\\"
-      "Inserting a quoted quotation mark into the string
-	return a:char
-	elseif line[col - 1] == a:char
-      "Escaping out of the string
-	return "\<Right>"
-	else
-      "Starting a string
-      return a:char.a:char."\<Esc>i"
-	endif
-endf	 
-
+" nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR></CR></Leader></silent>
+autocmd VimEnter * silent! Tmuxline lightline
