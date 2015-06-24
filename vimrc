@@ -138,3 +138,7 @@ nnoremap ; :
 " Sticky Highlight
 " nnoremap <silent> <Leader>l ml:execute 'match Search /\%'.line('.').'l/'<CR></CR></Leader></silent>
 autocmd VimEnter * silent! Tmuxline lightline
+
+" configuration for dispatch
+autocmd FileType xquery let b:dispatch = 'basex -t %'
+nnoremap <F7> :Dispatch<CR>
